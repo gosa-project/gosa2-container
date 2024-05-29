@@ -1,0 +1,43 @@
+---
+version: '2.0'
+
+services:
+  gosa-www:
+    build:
+      context: container/www
+    volumes:
+      - type: bind
+        source: PATH_TO_GOSA_ROOT_DIR
+        target: /srv/gosa/gosa/
+    depends_on:
+      gosa-ldap:
+        condition: service_started
+    networks:
+      gosa:
+        aliases:
+          - gosa.gosa.example.de
+    ports:
+      - 80:80
+    expose:
+      - 80
+      - 443
+    hostname: gosa.gosa.example.de
+  gosa-ldap:
+    build: container/ldap
+    networks:
+      gosa:
+        aliases:
+          - ldap.gosa.example.de
+    ports:
+      - "127.0.0.1:3389:389"
+    expose:
+      - "389"
+    hostname: ldap.gosa.example.de
+    volumes:
+      - gosa-ldap-db:/var/lib/ldap
+
+volumes:
+  gosa-ldap-db: {}
+
+networks:
+  gosa:
