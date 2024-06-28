@@ -30,8 +30,10 @@ services:
           - ldap.gosa.example.de
     ports:
       - "127.0.0.1:3389:389"
+      - "127.0.0.1:6636:636"
     expose:
       - "389"
+      - "636"
     hostname: ldap.gosa.example.de
     volumes:
       - gosa-ldap-db:/var/lib/ldap
