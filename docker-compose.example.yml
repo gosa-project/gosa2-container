@@ -12,6 +12,8 @@ services:
     depends_on:
       gosa-ldap:
         condition: service_started
+      gosa-ldap2:
+        condition: service_started
     networks:
       gosa:
         aliases:

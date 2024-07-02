@@ -6,3 +6,18 @@ environment.
 
 It should be possible to run GOsa² on your local machine
 and to get it work on your kubernetes environment also.
+
+## Current state
+
+The state of container files is "work in progress".
+The amount of options to use this as an basis to
+setup an production environment are very limited.
+
+Although you should find any interessting pieces here
+to get your own environment up and running.
+
+### What should work
+
+1. Setup GOsa² with openLDAP >= 2.5
+2. Use `START_TLS` for GOsa²s LDAP connection
+3. Using a multi provider LDAP setup
