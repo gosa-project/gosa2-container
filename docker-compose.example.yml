@@ -7,7 +7,7 @@ services:
       context: container/www
     volumes:
       - type: bind
-        source: PATH_TO_GOSA_ROOT_DIR
+        source: /PATH/TO/GOSA2
         target: /srv/gosa/gosa/
     depends_on:
       gosa-ldap:
@@ -37,9 +37,34 @@ services:
     hostname: ldap.gosa.example.de
     volumes:
       - gosa-ldap-db:/var/lib/ldap
+      - type: bind
+        source: /PATH/TO/CERTS
+        target: /certs/
+  gosa-ldap2:
+    build: container/ldap
+    networks:
+      gosa:
+        aliases:
+          - ldap2.gosa.example.de
+    ports:
+      - "127.0.0.1:3899:389"
+      - "127.0.0.1:6366:636"
+    expose:
+      - "389"
+      - "636"
+    hostname: ldap2.gosa.example.de
+    volumes:
+      - gosa-ldap2-db:/var/lib/ldap
+      - type: bind
+        source: /PATH/TO/CERTS
+        target: /certs/
+    depends_on:
+      gosa-ldap:
+        condition: service_started
 
 volumes:
   gosa-ldap-db: {}
+  gosa-ldap2-db: {}
 
 networks:
   gosa:
