@@ -21,3 +21,12 @@ to get your own environment up and running.
 1. Setup GOsa² with openLDAP >= 2.5
 2. Use `START_TLS` for GOsa²s LDAP connection
 3. Using a multi provider LDAP setup
+
+### Setup
+
+In the future it should be sufficient to apply a
+manifest to your kubernetes environment with the
+appropriate configuration values.
+
+We do this to avoid the classic setup wizard that
+still exists in GOsa².
