@@ -55,7 +55,6 @@ RUN update-alternatives --set php /usr/bin/php${GOSA_PHP_VERSION}
 
 COPY assets/php-fpm.conf /etc/php/${GOSA_PHP_VERSION}/fpm
 COPY assets/php.ini /etc/php/${GOSA_PHP_VERSION}/fpm
-#COPY assets/www.conf /etc/php/${GOSA_PHP_VERSION}/fpm/pool.d
 COPY assets/sudoers_www-data /etc/sudoers.d/www-data
 COPY assets/init-gosa.php /
 COPY assets/class_ldap.inc /
