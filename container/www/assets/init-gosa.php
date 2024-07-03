@@ -2,9 +2,9 @@
 
 require_once("class_ldap.inc");
 
-create_base_and_admin($argv[1], $argv[2], $argv[3], $argv[4] === 1);
+create_base_and_admin($argv[1], $argv[2], $argv[3], $argv[4] === 1, $argv[5] ?? 'gsa', $argv[6] ?? 'tester');
 
-function create_base_and_admin(string $connection_string, string $admin_dn, string $admin_pw, bool $tls = false)
+function create_base_and_admin(string $connection_string, string $admin_dn, string $admin_pw, bool $tls = false, string $gsa_uid = "gsa", string $gsa_pw = 'tester')
 {
     /**
      * Build LDAP connection
@@ -47,8 +47,8 @@ function create_base_and_admin(string $connection_string, string $admin_dn, stri
     $ldap->create_missing_trees(0, $base);
     
     // add gsa
-    $pw = "tester";
-    $uid = "gsa";
+    $uid = $gsa_uid;
+    $pw = $gsa_pw;
 
     $people_ou = "ou=people,"; // Thats the property default.
     $dn = "cn=System Administrator-" . $uid . "," . $people_ou . $base;

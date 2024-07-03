@@ -28,7 +28,7 @@ service php${GOSA_PHP_VERSION}-fpm start
 
 echo 'TLS_REQCERT never' >> /etc/ldap/ldap.conf
 sleep 5 # ugly "fix" to wait a little longer for the ldap to become ready
-php /init-gosa.php "$LDAP_LIST" "$ROOT_DN" "$ROOT_PW" $USE_TLS
+php /init-gosa.php "$LDAP_LIST" "$ROOT_DN" "$ROOT_PW" $USE_TLS "$GSA_UID" "$GSA_PW"
 
 composer update /srv/gosa/gosa/gosa-core/
 

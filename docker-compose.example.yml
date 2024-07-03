@@ -29,6 +29,8 @@ services:
       ROOT_DN: ""
       ROOT_PW: ""
       USE_TLS: true
+      GSA_UID: "gsa"
+      GSA_PW: "tester"
   gosa-ldap:
     build: container/ldap
     networks:
