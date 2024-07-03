@@ -24,6 +24,11 @@ services:
       - 80
       - 443
     hostname: gosa.gosa.example.de
+    environment:
+      LDAP_LIST: "ldap://ldap.gosa.example.de ldap://ldap2.gosa.example.de"
+      ROOT_DN: ""
+      ROOT_PW: ""
+      USE_TLS: true
   gosa-ldap:
     build: container/ldap
     networks:
