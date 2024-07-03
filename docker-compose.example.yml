@@ -32,7 +32,13 @@ services:
       GSA_UID: "gsa"
       GSA_PW: "tester"
   gosa-ldap:
-    build: container/ldap
+    build:
+      context: container/ldap
+      args:
+        HEALTHCHECK_LDAP_USER_DN: "cn=manager,dc=example,dc=de"
+        HEALTHCHECK_LDAP_USER_PASSWORD: "secret"
+        HEALTHCHECK_LDAP_BASE: "dc=example,dc=de"
+        HEALTHCHECK_LDAP_URI: "ldap://ldap.gosa.example.de"
     networks:
       gosa:
         aliases:
@@ -50,7 +56,13 @@ services:
         source: /PATH/TO/CERTS
         target: /certs/
   gosa-ldap2:
-    build: container/ldap
+    build:
+      context: container/ldap
+      args:
+        HEALTHCHECK_LDAP_USER_DN: "cn=manager,dc=example,dc=de"
+        HEALTHCHECK_LDAP_USER_PASSWORD: "secret"
+        HEALTHCHECK_LDAP_BASE: "dc=example,dc=de"
+        HEALTHCHECK_LDAP_URI: "ldap://ldap2.gosa.example.de"
     networks:
       gosa:
         aliases:
