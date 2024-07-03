@@ -10,7 +10,7 @@ find /etc/ldap/
 if [ ! -f /etc/ldap/slapd.d/cn=config.ldif ]; then
 	echo "Applying initial configuration"
 	slapadd -l /etc/opt/init/config.ldif -b cn=config -F /etc/ldap/slapd.d
-	slapadd -l /etc/opt/init/datanew6.ldif -F /etc/ldap/slapd.d
+	slapadd -l /etc/opt/init/data.ldif -F /etc/ldap/slapd.d
 fi
 
 # if [ ! -f /var/lib/ldap/data.mdb ]; then

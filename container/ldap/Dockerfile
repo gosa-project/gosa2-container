@@ -27,12 +27,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
 
 RUN rm -rf /var/lib/ldap && mkdir /var/lib/ldap
 RUN mkdir -p /etc/opt/init/schema
-# COPY assets/config.ldif assets/init.ldif.xz /etc/opt/init/
-COPY assets/config.ldif /etc/opt/init/
 COPY assets/schema /etc/opt/init/schema/
-COPY assets/data-1.ldif /etc/opt/init/
-COPY assets/config-tua.ldif /etc/opt/init/
-COPY assets/datanew6.ldif /etc/opt/init/
+COPY assets/config.ldif /etc/opt/init/
+COPY assets/data.ldif /etc/opt/init/
 
 # recreate initial directores
 RUN rm -rf /etc/ldap /var/lib/ldap && mkdir -pv /etc/ldap/sasl2 /etc/ldap/slapd.d /var/lib/ldap 
