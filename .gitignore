@@ -1,1 +1,2 @@
 docker-compose.yml
+container/www/assets/gosa.conf
