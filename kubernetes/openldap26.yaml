@@ -22,7 +22,7 @@ spec:
             - name: ldap-data
               mountPath: /var/lib/ldap
             - name: ldap-config
-              mountPath: /etc/ldap/slapd.d
+              mountPath: /LDIFs/
             - name: ldap-certs
               mountPath: /container/service/slapd/assets/certs
             - name: secret-volume
@@ -37,6 +37,10 @@ spec:
               value: "389"
             - name: LDAP_LDAPS_PORT_NUMBER
               value: "636"
+            - name: LDAP_SKIP_DEFAULT_TREE
+              value: "true"
+            - name: LDAP_CUSTOM_LDIF_DIR
+              value: /LDIFs/
       volumes:
         - name: ldap-data
         - name: ldap-config
