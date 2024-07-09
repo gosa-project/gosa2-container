@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gosa-openldap
+  labels:
+    app: ldap
+  namespace: gosa
+spec:
+  selector:
+    matchLabels:
+      app: ldap
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ldap
+    spec:
+      containers:
+        - name: ldap
+          image: bitnami/openldap:2.6
+          volumeMounts:
+            - name: ldap-data
+              mountPath: /var/lib/ldap
+            - name: ldap-config
+              mountPath: /etc/ldap/slapd.d
+            - name: ldap-certs
+              mountPath: /container/service/slapd/assets/certs
+            - name: secret-volume
+              mountPath: /container/environment/01-custom
+          ports:
+            - containerPort: 389
+              name: openldap
+            - containerPort: 636
+              name: openldapssl
+          env:
+            - name: LDAP_PORT_NUMBER
+              value: "389"
+            - name: LDAP_LDAPS_PORT_NUMBER
+              value: "636"
+      volumes:
+        - name: ldap-data
+        - name: ldap-config
+        - name: ldap-certs
+        - name: secret-volume
