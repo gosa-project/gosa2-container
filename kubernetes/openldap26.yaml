@@ -1,48 +1,73 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: gosa-openldap
+  namespace: gosa
   labels:
-    app: ldap
+    app: gosa-openldap
+spec:
+  type: ClusterIP
+  ports:
+  - port: 389
+    name: ldap
+  - port: 636
+    name: ldaps
+  clusterIP: None
+  selector:
+    app: gosa-openldap
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gosa-openldap
   namespace: gosa
 spec:
+  serviceName: gosa-openldap
   selector:
     matchLabels:
-      app: ldap
+      app: gosa-openldap
   replicas: 2
   template:
     metadata:
       labels:
-        app: ldap
+        app: gosa-openldap
     spec:
+      subdomain: gosa-openldap
+      dnsConfig:
+        searches:
+          - gosa-openldap.gosa.svc.cluster.local
       containers:
-        - name: ldap
+        - name: gosa-openldap
           image: bitnami/openldap:2.6
           volumeMounts:
-            - name: ldap-data
-              mountPath: /var/lib/ldap
-            - name: ldap-config
-              mountPath: /LDIFs/
-            - name: ldap-certs
-              mountPath: /container/service/slapd/assets/certs
-            - name: secret-volume
-              mountPath: /container/environment/01-custom
+            - name: ldapdata
+              mountPath: /bitnami/openldap
           ports:
             - containerPort: 389
-              name: openldap
+              name: ldap
             - containerPort: 636
-              name: openldapssl
+              name: ldaps
           env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: LDAP_PORT_NUMBER
               value: "389"
             - name: LDAP_LDAPS_PORT_NUMBER
               value: "636"
             - name: LDAP_SKIP_DEFAULT_TREE
-              value: "true"
-            - name: LDAP_CUSTOM_LDIF_DIR
-              value: /LDIFs/
-      volumes:
-        - name: ldap-data
-        - name: ldap-config
-        - name: ldap-certs
-        - name: secret-volume
+              value: "no"
+            - name: LDAP_ENABLE_TLS
+              value: "no"
+            - name: LDAP_ENABLE_SYNCPROV
+              value: "yes"
+  volumeClaimTemplates:
+    - metadata:
+        name: ldapdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 3Gi
