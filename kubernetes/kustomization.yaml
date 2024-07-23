@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - openldap26.yaml
+- gosa28.yaml
