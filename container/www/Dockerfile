@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG PHP_VERSION="8.2"
 ENV GOSA_PHP_VERSION=${PHP_VERSION}
@@ -49,7 +49,8 @@ RUN apt-get -y install \
       php${GOSA_PHP_VERSION}-xml \
       composer \
       php-json \
-      php-fpdf
+      php-fpdf \
+      locales
 
 RUN update-alternatives --set php /usr/bin/php${GOSA_PHP_VERSION}
 
@@ -70,6 +71,7 @@ COPY assets/gosa.conf /etc/gosa
 COPY assets/nginx_gosa /etc/nginx/sites-available/gosa
 RUN ln -s ../sites-available/gosa /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
+RUN locale-gen de
 
 COPY --chmod=0755 docker-entrypoint.sh /
 
