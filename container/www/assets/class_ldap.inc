@@ -992,7 +992,7 @@ class LDAP
 
                     print_a(array($cdn,$na));
 
-                    msg_dialog::display(_("LDAP error"), msgPool::ldaperror($this->get_error(), $cdn, LDAP_ADD, get_class()));
+                    msg_dialog::display(_("LDAP error"), msgPool::ldaperror($this->get_error(), $cdn, LDAP_ADD, __CLASS__));
                     return FALSE;
                 }
             }
