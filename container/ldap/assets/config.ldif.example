@@ -1,0 +1,180 @@
+dn: cn=config
+objectClass: olcGlobal
+cn: config
+olcArgsFile: /var/run/slapd.args
+olcPidFile: /var/run/slapd.pid
+#olcTLSCACertificateFile: /path
+#olcTLSCertificateFile: /certs/ldaps.cert
+#olcTLSCertificateKeyFile: /certs/ldaps.key
+olcTLSCipherSuite: SECURE256:+SECURE128:-VERS-TLS-ALL:+VERS-TLS1.2:+VERS-DTLS1.2:-RSA:-DHE-DSS:-CAMELLIA-128-CBC:-CAMELLIA-256-CBC
+olcTLSCRLCheck: none
+olcTLSVerifyClient: never
+olcServerID: 1 ldap://ldap.gosa.example.com
+olcServerID: 2 ldap://ldap2.gosa.example.com
+olcLogLevel: stats
+
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module
+olcModulepath:  /usr/lib/ldap/
+olcModuleload:  back_mdb.la
+olcModuleLoad:  dynlist.la
+# Load the accesslog overlay
+olcModuleLoad:  accesslog.la
+#Load the syncprov overlay
+olcModuleLoad:  syncprov.la
+
+dn: cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: schema
+
+include: file:///etc/opt/init/schema/cn={0}core.ldif
+include: file:///etc/opt/init/schema/cn={1}cosine.ldif
+include: file:///etc/opt/init/schema/cn={2}dhcp.ldif
+include: file:///etc/opt/init/schema/cn={3}goconfig.ldif
+include: file:///etc/opt/init/schema/cn={4}goto-mime.ldif
+include: file:///etc/opt/init/schema/cn={5}mod_vhost_ldap.ldif
+include: file:///etc/opt/init/schema/cn={6}nagios.ldif
+include: file:///etc/opt/init/schema/cn={7}openssh-lpk.ldif
+include: file:///etc/opt/init/schema/cn={8}phpgwaccount.ldif
+include: file:///etc/opt/init/schema/cn={9}phpscheduleit.ldif
+include: file:///etc/opt/init/schema/cn={10}pptp.ldif
+include: file:///etc/opt/init/schema/cn={11}pureftpd.ldif
+include: file:///etc/opt/init/schema/cn={12}inetorgperson.ldif
+include: file:///etc/opt/init/schema/cn={13}rfc2739.ldif
+include: file:///etc/opt/init/schema/cn={14}sudo.ldif
+include: file:///etc/opt/init/schema/cn={15}trust.ldif
+#include: file:///etc/opt/init/schema/cn={16}rfc2307bis.ldif
+include: file:///etc/opt/init/schema/cn={16}nis.ldif
+include: file:///etc/opt/init/schema/cn={17}gofax.ldif
+include: file:///etc/opt/init/schema/cn={18}gofon.ldif
+include: file:///etc/opt/init/schema/cn={19}gosystem.ldif
+include: file:///etc/opt/init/schema/cn={20}goto.ldif
+include: file:///etc/opt/init/schema/cn={21}goserver.ldif
+include: file:///etc/opt/init/schema/cn={22}gozarafa.ldif
+include: file:///etc/opt/init/schema/cn={23}samba3.ldif
+include: file:///etc/opt/init/schema/cn={24}gosa-samba3.ldif
+include: file:///etc/opt/init/schema/cn={25}openxchange.ldif
+include: file:///etc/opt/init/schema/cn={26}dnszone.ldif
+include: file:///etc/opt/init/schema/cn={27}dyngroup.ldif
+
+# Frontend settings
+#
+dn: olcDatabase=frontend,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcFrontendConfig
+olcDatabase: frontend
+
+# 0 DB settings
+#
+dn: olcDatabase={0}config,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcFrontendConfig
+olcDatabase: config
+olcRootDN: cn=config
+olcRootPW: secret
+olcAccess: to * by * none
+
+# Database
+#
+dn: olcDatabase={1}mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: mdb
+olcDbMaxSize: 10737418240
+olcSuffix: dc=example,dc=com
+olcRootDN: cn=manager,dc=example,dc=com
+olcRootPW: secret
+olcSecurity: tls=0
+# The database directory MUST exist prior to running slapd AND 
+# should only be accessible by the slapd and slap tools.
+# Mode 700 recommended.
+olcDbDirectory: /var/lib/ldap/gosadb
+# Indices to maintain
+olcDbIndex: uid eq
+olcDbIndex: mail eq
+olcDbIndex: memberOf eq
+olcDbIndex: entryCSN eq
+olcDbIndex: entryUUID eq
+olcDbIndex: objectClass pres,eq
+olcDbIndex: member,memberUid eq
+olcDbIndex: cn eq
+olcDbIndex: uidNumber eq
+olcDbIndex: default sub
+olcAccess: {0}to attrs=userPassword,sambaPwdLastSet,sambaPwdMustChange,sambaPwdCanChange,shadowMax,shadowExpire by dn.exact="cn=replicator,dc=example,dc=com" read by anonymous auth by self write by * none
+olcAccess: {1}to attrs=sambaAcctFlags,sambaNextRid,sambaNextGroupRid,sambaNextUserRid,sambaSID,displayName,sambaPasswordHistory,objectClass by dn.exact="cn=replicator,dc=example,dc=com" read by * read
+olcAccess: {2}to attrs=sambaLMPassword,sambaNTPassword by dn.exact="cn=replicator,dc=example,dc=com" read by anonymous auth by self write by * none
+olcAccess: {3}to * by dn.exact="cn=replicator,dc=example,dc=com" read by * read
+olcLimits: dn.exact="cn=replicator,dc=example,dc=com"
+  time.soft=unlimited time.hard=unlimited
+  size.soft=unlimited size.hard=unlimited
+olcSyncRepl: rid=100 provider="ldap://ldap.gosa.example.com" bindmethod=simple
+  binddn="cn=replicator,dc=example,dc=com" credentials=secret
+  searchbase="dc=example,dc=com" scope="sub"
+  logbase="cn=accesslog"
+  logfilter="(&(objectClass=auditWriteObject)(reqResult=0))"
+  schemachecking=on
+  type=refreshAndPersist retry="5 30 300 +"
+  syncdata=accesslog
+olcSyncRepl: rid=200 provider="ldap://ldap2.gosa.example.com" bindmethod=simple
+  binddn="cn=replicator,dc=example,dc=com" credentials=secret
+  searchbase="dc=example,dc=com" scope="sub"
+  logbase="cn=accesslog"
+  logfilter="(&(objectClass=auditWriteObject)(reqResult=0))"
+  schemachecking=on
+  type=refreshAndPersist retry="5 30 300 +"
+  syncdata=accesslog
+olcMirrorMode: TRUE
+
+dn: olcOverlay={0}dynlist,olcDatabase={1}mdb,cn=config
+objectClass: olcDynamicList
+objectClass: olcOverlayConfig
+olcOverlay: dynlist
+olcDlAttrSet: gosaGroupOfNames labeledURI member+memberOf@gosaGroupOfNames
+
+dn: olcOverlay={1}syncprov,olcDatabase={1}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpCheckPoint: 100 5
+olcSpSessionlog: 100
+
+# Accesslog Overlay
+dn: olcOverlay={2}accesslog,olcDatabase={1}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcAccessLogConfig
+olcOverlay: accesslog
+olcAccessLogDB: cn=accesslog
+olcAccessLogOps: writes
+olcAccessLogSuccess: TRUE
+olcAccessLogPurge: 07+00:00 01+00:00
+
+# Accesslog database definitions
+dn: olcDatabase={2}mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: mdb
+olcDbDirectory: /var/lib/ldap/accesslog
+olcSuffix: cn=accesslog
+olcRootDN: cn=admin,cn=accesslog
+olcRootPW: auditor_password
+olcDbIndex: default eq
+olcDbIndex: entryCSN,objectClass,reqEnd,reqResult,reqStart
+olcAccess: {0}to * by dn.exact="cn=replicator,dc=example,dc=com" read by * none
+olcLimits: dn.exact="cn=replicator,dc=example,dc=com"
+  time.soft=unlimited time.hard=unlimited
+  size.soft=unlimited size.hard=unlimited
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpReloadHint: TRUE
+olcSpNoPresent: TRUE
+
+dn: olcDatabase=monitor,cn=config
+objectClass: olcDatabaseConfig
+olcDatabase: monitor
+olcRootDN: cn=config
+olcMonitoring: FALSE
+

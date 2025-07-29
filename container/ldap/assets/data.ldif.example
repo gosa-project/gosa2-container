@@ -1,0 +1,19 @@
+dn: dc=example,dc=com
+ou: example
+description: example
+objectClass: dcObject
+objectClass: gosaAcl
+objectClass: gosaDepartment
+objectClass: organization
+dc: example
+o: example
+structuralObjectClass: organization
+
+# Replication user
+#
+dn: cn=replicator,dc=example,dc=com
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: replicator
+description: Replication user
+userPassword: {SSHA}MBF+TcdF6yXSqVoN1hbjJxpgR2LXE2K7
