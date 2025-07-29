@@ -1,5 +1,4 @@
 ---
-version: '2.0'
 
 services:
   gosa-www:
@@ -17,15 +16,15 @@ services:
     networks:
       gosa:
         aliases:
-          - gosa.gosa.example.de
+          - gosa.gosa.example.com
     ports:
       - 80:80
     expose:
       - 80
       - 443
-    hostname: gosa.gosa.example.de
+    hostname: gosa.gosa.example.com
     environment:
-      LDAP_LIST: "ldap://ldap.gosa.example.de ldap://ldap2.gosa.example.de"
+      LDAP_LIST: "ldap://ldap.gosa.example.com ldap://ldap2.gosa.example.com"
       ROOT_DN: ""
       ROOT_PW: ""
       USE_TLS: true
@@ -35,21 +34,21 @@ services:
     build:
       context: container/ldap
       args:
-        HEALTHCHECK_LDAP_USER_DN: "cn=manager,dc=example,dc=de"
+        HEALTHCHECK_LDAP_USER_DN: "cn=manager,dc=example,dc=com"
         HEALTHCHECK_LDAP_USER_PASSWORD: "secret"
-        HEALTHCHECK_LDAP_BASE: "dc=example,dc=de"
-        HEALTHCHECK_LDAP_URI: "ldap://ldap.gosa.example.de"
+        HEALTHCHECK_LDAP_BASE: "dc=example,dc=com"
+        HEALTHCHECK_LDAP_URI: "ldap://ldap.gosa.example.com"
     networks:
       gosa:
         aliases:
-          - ldap.gosa.example.de
+          - ldap.gosa.example.com
     ports:
       - "127.0.0.1:3389:389"
       - "127.0.0.1:6636:636"
     expose:
       - "389"
       - "636"
-    hostname: ldap.gosa.example.de
+    hostname: ldap.gosa.example.com
     volumes:
       - gosa-ldap-db:/var/lib/ldap
       - type: bind
@@ -59,21 +58,21 @@ services:
     build:
       context: container/ldap
       args:
-        HEALTHCHECK_LDAP_USER_DN: "cn=manager,dc=example,dc=de"
+        HEALTHCHECK_LDAP_USER_DN: "cn=manager,dc=example,dc=com"
         HEALTHCHECK_LDAP_USER_PASSWORD: "secret"
-        HEALTHCHECK_LDAP_BASE: "dc=example,dc=de"
-        HEALTHCHECK_LDAP_URI: "ldap://ldap2.gosa.example.de"
+        HEALTHCHECK_LDAP_BASE: "dc=example,dc=com"
+        HEALTHCHECK_LDAP_URI: "ldap://ldap2.gosa.example.com"
     networks:
       gosa:
         aliases:
-          - ldap2.gosa.example.de
+          - ldap2.gosa.example.com
     ports:
       - "127.0.0.1:3899:389"
       - "127.0.0.1:6366:636"
     expose:
       - "389"
       - "636"
-    hostname: ldap2.gosa.example.de
+    hostname: ldap2.gosa.example.com
     volumes:
       - gosa-ldap2-db:/var/lib/ldap
       - type: bind
