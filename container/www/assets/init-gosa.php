@@ -13,8 +13,8 @@ function create_base_and_admin(string $connection_string, string $admin_dn, stri
      * 
      * <location name="mygosalocation"
      *   ...
-     *   <referral URI="ldap://ldap.gosa.example.de/dc=example,dc=de"
-     *             adminDn="cn=manager,dc=uni-bonn,dc=de"
+     *   <referral URI="ldap://ldap.gosa.example.de/dc=example,dc=com"
+     *             adminDn="cn=manager,dc=example,dc=com"
      *             adminPassword="manager" />
      * </location>
      */
