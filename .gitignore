@@ -1,2 +1,5 @@
+.vscode
 docker-compose.yml
 container/www/assets/gosa.conf
+container/ldap/assets/config.ldif
+container/ldap/assets/data.ldif
