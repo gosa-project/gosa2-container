@@ -310,6 +310,7 @@
         ignoreLdapProperties="false"
         rfc2307bis="true"
         theme="default"
+        templateCompileDirectory="/var/spool/gosa"
     >
 
     <!-- Location definition -->
