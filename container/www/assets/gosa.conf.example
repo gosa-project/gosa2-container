@@ -18,7 +18,7 @@
       <plugin acl="application" class="applicationManagement" />
       <plugin acl="mimetypes" class="mimetypeManagement" />
       <plugin acl="devices" class="deviceManagement" />
-      <plugin acl="terminal/termgeneric,workstation/workgeneric,server/servgeneric,phone/phoneGeneric,printer/printgeneric,component/componentGeneric,winworkstation/wingeneric" class="systemManagement" />
+      <plugin acl="terminal/termgeneric,workstation/workgeneric,server/servgeneric,phone/phoneGeneric,printer/printgeneric,component/componentGeneric,winworkstation/wingeneric" class="GosaSystems\admin\systems\SystemManagement" />
       <plugin acl="gofaxlist" class="blocklist" />
       <plugin acl="gofonmacro" class="goFonMacro" />
       <plugin acl="gofonconference" class="phoneConferenceManagment" />
