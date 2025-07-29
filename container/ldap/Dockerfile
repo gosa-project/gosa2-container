@@ -2,9 +2,9 @@ FROM ubuntu:24.04
 
 LABEL maintainer="Benjamin Zapiec <zapiec@gonicus.de>"
 
-ARG HEALTHCHECK_LDAP_USER_DN="cn=manager,dc=example,dc=de"
+ARG HEALTHCHECK_LDAP_USER_DN="cn=manager,dc=example,dc=com"
 ARG HEALTHCHECK_LDAP_USER_PW="secret"
-ARG HEALTHCHECK_LDAP_BASE="dc=example,dc=de"
+ARG HEALTHCHECK_LDAP_BASE="dc=example,dc=com"
 ARG HEALTHCHECK_LDAP_URI="ldap://{$HOSTNAME}"
 
 ENV HEALTHCHECK_LDAP_USER_DN=${HEALTHCHECK_LDAP_USER_DN}
@@ -12,7 +12,6 @@ ENV HEALTHCHECK_LDAP_USER_PW=${HEALTHCHECK_LDAP_USER_PW}
 ENV HEALTHCHECK_LDAP_BASE=${HEALTHCHECK_LDAP_BASE}
 ENV HEALTHCHECK_LDAP_URI=${HEALTHCHECK_LDAP_URI}
 
-RUN mkdir /certs
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
   apt-get -y install \
     xz-utils \
@@ -30,6 +29,11 @@ RUN mkdir -p /etc/opt/init/schema
 COPY assets/schema /etc/opt/init/schema/
 COPY assets/config.ldif /etc/opt/init/
 COPY assets/data.ldif /etc/opt/init/
+
+# RUN mkdir /certs
+# COPY certs/ldaps.cert /certs/
+# COPY certs/ldaps.csr /certs/
+# COPY certs/ldaps.key /certs/
 
 # recreate initial directores
 RUN rm -rf /etc/ldap /var/lib/ldap && mkdir -pv /etc/ldap/sasl2 /etc/ldap/slapd.d /var/lib/ldap 
