@@ -315,10 +315,10 @@
     <!-- Location definition -->
     <location name="gosa"
               ldapTLS="true"
-              config="ou=gosa,ou=configs,ou=systems,dc=example,dc=de">
-              <referral URI="ldap://gosa-ldap/dc=example,dc=de"
-                        adminDn="cn=manager,dc=example,dc=de"
-                        adminPassword="YOUR_SECRET_PW" />
+              config="ou=gosa,ou=configs,ou=systems,dc=example,dc=com">
+              <referral URI="ldap://gosa-ldap/dc=example,dc=com"
+                        adminDn="cn=manager,dc=example,dc=com"
+                        adminPassword="secret" />
     </location>
   </main>
 </conf>
