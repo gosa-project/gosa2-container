@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG PHP_VERSION="8.2"
+ARG PHP_VERSION="8.3"
 ENV GOSA_PHP_VERSION=${PHP_VERSION}
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -47,6 +47,7 @@ RUN apt-get -y install \
       php${GOSA_PHP_VERSION}-mysql \
       php${GOSA_PHP_VERSION}-readline \
       php${GOSA_PHP_VERSION}-xml \
+      php${GOSA_PHP_VERSION}-xdebug \
       composer \
       php-json \
       php-fpdf \
@@ -56,6 +57,7 @@ RUN update-alternatives --set php /usr/bin/php${GOSA_PHP_VERSION}
 
 COPY assets/php-fpm.conf /etc/php/${GOSA_PHP_VERSION}/fpm
 COPY assets/php.ini /etc/php/${GOSA_PHP_VERSION}/fpm
+COPY assets/99-xdebug.ini /etc/php/${GOSA_PHP_VERSION}/fpm/conf.d
 COPY assets/sudoers_www-data /etc/sudoers.d/www-data
 COPY assets/init-gosa.php /
 COPY assets/class_ldap.inc /
