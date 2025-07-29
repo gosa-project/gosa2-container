@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gosa
+  name: gosa
+  labels:
+    app: gosa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gosa-php-nginx
+  template:
+    metadata:
+      labels:
+        app: gosa-php-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
