@@ -30,3 +30,25 @@ appropriate configuration values.
 
 We do this to avoid the classic setup wizard that
 still exists in GOsa².
+
+#### Using docker compose
+
+To get GOsa² up and running in a local container environment you need to do
+the following steps:
+
+1. clone this repository
+2. create a `docker-compose.yml` file from the given example and fill out the necessary values
+3. provide a valid ldap configuration
+   1. a valid and working configuration is provided. The base DN is set to `dc=example,dc=com`
+   2. rename `config.ldif.example` to `config.ldif`
+   3. rename `data.ldif.example` to `data.ldif`
+4. run: `docker compose build`
+5. start all containers using `docker compose up` or `docker compose up -d`
+
+After the start GOsa² Web Interface should be available at `http://localhost:8080/gosa` by default.
+At this point you have a working GOsa². Congratulations!
+
+ATTENTION: This example is not inteded to be used as a production environment. It just
+serves a testing purpose. Keep in mind that we predefined some critical values like
+passwords. If you choose to start a productive environment based on these files it
+is crucial to change those values.
