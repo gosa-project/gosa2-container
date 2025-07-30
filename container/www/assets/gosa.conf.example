@@ -4,7 +4,7 @@
 
     <!-- Section to enable administrative services -->
     <section name="Administration">
-      <plugin acl="department" class="departmentManagement" />
+      <plugin acl="department" class="GosaDepartments\admin\departments\DepartmentManagement" />
 
       <!-- This long ACL list is required to exclude the users menu entry when only 
             'viewFaxEntries' permissions are set -->
@@ -223,33 +223,33 @@
   </serverservice>
 
   <!-- Department plugin -->
-  <deptabs>
-    <tab class="department" name="Generic" />
+  <DepTabs>
+    <tab class="GosaDepartments\admin\departments\Department" name="Generic" />
     <tab class="DynamicLdapGroup" name="Dynamic object" />
-  </deptabs>
+  </DepTabs>
 
   <organization_tabs>
-    <tab class="organization" name="Generic" />
+    <tab class="GosaDepartments\admin\departments\Organization" name="Generic" />
     <tab class="DynamicLdapGroup" name="Dynamic object" />
   </organization_tabs>
 
   <locality_tabs>
-    <tab class="locality" name="Generic" />
+    <tab class="GosaDepartments\admin\departments\Locality" name="Generic" />
     <tab class="DynamicLdapGroup" name="Dynamic object" />
   </locality_tabs>
 
   <country_tabs>
-    <tab class="country" name="Generic" />
+    <tab class="GosaDepartments\admin\departments\Country" name="Generic" />
     <tab class="DynamicLdapGroup" name="Dynamic object" />
   </country_tabs>
 
   <dcobject_tabs>
-    <tab class="dcObject" name="Generic" />
+    <tab class="GosaDepartments\admin\departments\DcObject" name="Generic" />
     <tab class="DynamicLdapGroup" name="Dynamic object" />
   </dcobject_tabs>
 
   <domain_tabs>
-    <tab class="domain" name="Generic" />
+    <tab class="GosaDepartments\admin\departments\Domain" name="Generic" />
     <tab class="DynamicLdapGroup" name="Dynamic object" />
   </domain_tabs>
 
