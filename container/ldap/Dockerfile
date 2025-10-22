@@ -6,11 +6,13 @@ ARG HEALTHCHECK_LDAP_USER_DN="cn=manager,dc=example,dc=com"
 ARG HEALTHCHECK_LDAP_USER_PW="secret"
 ARG HEALTHCHECK_LDAP_BASE="dc=example,dc=com"
 ARG HEALTHCHECK_LDAP_URI="ldap://{$HOSTNAME}"
+ARG GROUPS_SCHEMA="rfc2307bis"
 
 ENV HEALTHCHECK_LDAP_USER_DN=${HEALTHCHECK_LDAP_USER_DN}
 ENV HEALTHCHECK_LDAP_USER_PW=${HEALTHCHECK_LDAP_USER_PW}
 ENV HEALTHCHECK_LDAP_BASE=${HEALTHCHECK_LDAP_BASE}
 ENV HEALTHCHECK_LDAP_URI=${HEALTHCHECK_LDAP_URI}
+ENV GROUPS_SCHEMA=${GROUPS_SCHEMA}
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
   apt-get -y install \
@@ -27,7 +29,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
 RUN rm -rf /var/lib/ldap && mkdir /var/lib/ldap
 RUN mkdir -p /etc/opt/init/schema
 COPY assets/schema /etc/opt/init/schema/
-COPY assets/config.ldif /etc/opt/init/
+
+COPY assets/config-${GROUPS_SCHEMA}.ldif /etc/opt/init/config.ldif
 COPY assets/data.ldif /etc/opt/init/
 
 # RUN mkdir /certs
