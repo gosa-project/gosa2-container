@@ -54,7 +54,7 @@ RUN apt-get -y install \
 
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
 RUN php composer-setup.php --check
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer  --version=2.8.12
 
 RUN update-alternatives --set php /usr/bin/php${GOSA_PHP_VERSION}
 
