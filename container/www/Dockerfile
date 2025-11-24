@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG PHP_VERSION="8.3"
+ARG PHP_VERSION="8.4"
 ENV GOSA_PHP_VERSION=${PHP_VERSION}
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -48,10 +48,13 @@ RUN apt-get -y install \
       php${GOSA_PHP_VERSION}-readline \
       php${GOSA_PHP_VERSION}-xml \
       php${GOSA_PHP_VERSION}-xdebug \
-      composer \
       php-json \
       php-fpdf \
       locales
+
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
+RUN php composer-setup.php --check
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer  --version=2.8.12
 
 RUN update-alternatives --set php /usr/bin/php${GOSA_PHP_VERSION}
 
