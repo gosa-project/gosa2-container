@@ -48,6 +48,7 @@ RUN apt-get -y install \
       php${GOSA_PHP_VERSION}-readline \
       php${GOSA_PHP_VERSION}-xml \
       php${GOSA_PHP_VERSION}-xdebug \
+      php${GOSA_PHP_VERSION}-apcu \
       php-json \
       php-fpdf \
       locales
