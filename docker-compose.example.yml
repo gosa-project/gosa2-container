@@ -18,7 +18,7 @@ services:
         aliases:
           - gosa.gosa.example.com
     ports:
-      - 80:80
+      - 8080:80
     expose:
       - 80
       - 443
