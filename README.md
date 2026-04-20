@@ -36,14 +36,36 @@ still exists in GOsa².
 To get GOsa² up and running in a local container environment you need to do
 the following steps:
 
-1. clone this repository
-2. create a `docker-compose.yml` file from the given example and fill out the necessary values
-3. provide a valid ldap configuration
-   1. a valid and working configuration is provided. The base DN is set to `dc=example,dc=com`
-   2. rename `config.ldif.example` to `config.ldif`
-   3. rename `data.ldif.example` to `data.ldif`
-4. run: `docker compose build`
-5. start all containers using `docker compose up` or `docker compose up -d`
+1. Clone this repository.
+
+`git clone https://github.com/gosa-project/gosa2-container.git`
+
+2. Clone the gosa-core repository into this repository.
+
+```
+cd gosa2-container
+git clone https://github.com/gosa-project/gosa-core.git container/www/assets/gosa2
+```
+
+3. Provide a valid gosa and ldap configuration by renaming `config.ldif.example` to `config.ldif`, `data.ldif.example` to `data.ldif` and `gosa.conf.example` to `gosa.conf`. A valid and working configuration is provided. The base DN is set to `dc=example,dc=com`.
+
+```
+mv container/www/assets/gosa.conf.example container/www/assets/gosa.conf
+mv container/ldap/assets/config.ldif.example container/ldap/assets/config.ldif
+mv container/ldap/assets/data.ldif.example container/ldap/assets/data.ldif
+```
+
+4. Build the necessary Docker containers.
+
+`docker compose build`
+
+5. Start all containers.
+
+`docker compose up`
+
+or
+
+`docker compose up -d`
 
 After the start GOsa² Web Interface should be available at `http://localhost:8080/gosa` by default.
 At this point you have a working GOsa². Congratulations!
