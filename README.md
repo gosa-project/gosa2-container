@@ -38,7 +38,9 @@ the following steps:
 
 1. Clone this repository.
 
-`git clone https://github.com/gosa-project/gosa2-container.git`
+```
+git clone https://github.com/gosa-project/gosa2-container.git
+```
 
 2. Clone the gosa-core repository into this repository.
 
@@ -57,15 +59,17 @@ mv container/ldap/assets/data.ldif.example container/ldap/assets/data.ldif
 
 4. Build the necessary Docker containers.
 
-`docker compose build`
+```
+docker compose build
+```
 
 5. Start all containers.
 
-`docker compose up`
-
-or
-
-`docker compose up -d`
+```
+docker compose up
+# or
+docker compose up -d
+```
 
 After the start GOsa² Web Interface should be available at `http://localhost:8080/gosa` by default.
 At this point you have a working GOsa². Congratulations!
