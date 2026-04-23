@@ -6,8 +6,8 @@ services:
       context: container/www
     volumes:
       - type: bind
-        source: /PATH/TO/GOSA2
-        target: /srv/gosa/gosa/
+        source: ./container/www/assets/gosa2
+        target: /srv/gosa/gosa/gosa-core
     depends_on:
       gosa-ldap:
         condition: service_started
@@ -18,15 +18,15 @@ services:
         aliases:
           - gosa.gosa.example.com
     ports:
-      - 80:80
+      - 8080:80
     expose:
       - 80
       - 443
     hostname: gosa.gosa.example.com
     environment:
       LDAP_LIST: "ldap://ldap.gosa.example.com ldap://ldap2.gosa.example.com"
-      ROOT_DN: ""
-      ROOT_PW: ""
+      ROOT_DN: "cn=manager,dc=example,dc=com"
+      ROOT_PW: "secret"
       USE_TLS: true
       GSA_UID: "gsa"
       GSA_PW: "tester"
@@ -52,7 +52,7 @@ services:
     volumes:
       - gosa-ldap-db:/var/lib/ldap
       - type: bind
-        source: /PATH/TO/CERTS
+        source: ./container/certs
         target: /certs/
   gosa-ldap2:
     build:
@@ -76,7 +76,7 @@ services:
     volumes:
       - gosa-ldap2-db:/var/lib/ldap
       - type: bind
-        source: /PATH/TO/CERTS
+        source: ./container/certs
         target: /certs/
     depends_on:
       gosa-ldap:
