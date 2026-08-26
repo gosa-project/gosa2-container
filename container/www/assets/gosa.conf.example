@@ -33,7 +33,7 @@
       <plugin acl="users/viewFaxEntries:self,users/viewFaxEntries" class="faxreport" />
       <plugin acl="users/viewFonEntries:self,users/viewFonEntries" class="fonreport" />
       <plugin acl="gotomasses" class="gotomasses" />
-      <plugin acl="ldapmanager" class="ldif" />
+      <plugin acl="ldapmanager" class="GosaLdapManager\addons\ldapmanager\Ldif" />
       <plugin acl="schoolmanager" class="schoolmgr"/>
       <plugin acl="pwreset" class="pwreset"/>
     </section>
@@ -279,10 +279,10 @@
   </connectivity>
 
   <ldiftab>
-    <tab class="ldifexport" name="Export" />
-    <tab class="xlsexport" name="Excel Export" />
-    <tab class="ldifimport" name="Import" />
-    <tab class="csvimport" name="CSV Import" />
+    <tab class="GosaLdapManager\addons\ldapmanager\LdifExport" name="Export" />
+    <tab class="GosaLdapManager\addons\ldapmanager\XlsExport" name="Excel Export" />
+    <tab class="GosaLdapManager\addons\ldapmanager\LdifImport" name="Import" />
+    <tab class="GosaLdapManager\addons\ldapmanager\CsvImport" name="CSV Import" />
   </ldiftab>
 
   <schoolmanagertab>
