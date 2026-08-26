@@ -202,24 +202,24 @@
   </wintabs>
 
   <serverservice>
-    <tab class="goMailServer" />
-    <tab class="servkolab" />
-    <tab class="goNtpServer" />
-    <tab class="servrepository" />
-    <tab class="goImapServer" />
-    <tab class="goKrbServer" />
-    <tab class="goFaxServer" />
-    <tab class="goFonServer" />
-    <tab class="goCupsServer" />
-    <tab class="goKioskService" />
-    <tab class="goTerminalServer" />
-    <tab class="goLdapServer" />
-    <tab class="goShareServer" />
-    <tab class="gospamserver" />
-    <tab class="govirusserver" />
-    <tab class="servdhcp" />
-    <tab class="servdns" />
-    <tab class="rSyslogServer" />
+    <tab class="GosaSystems\admin\systems\services\mail\GoMailServer" />
+    <tab class="GosaSystems\admin\systems\services\kolab\ServKolab" />
+    <tab class="GosaSystems\admin\systems\services\ntp\GoNtpServer" />
+    <!-- <tab class="GosaSystems\admin\systems\services\ServRepository" /> -->
+    <tab class="GosaSystems\admin\systems\services\imap\GoImapServer" />
+    <!-- <tab class="GosaSystems\admin\systems\services\GoKrbServer" /> -->
+    <tab class="GosaSystems\admin\systems\services\gofax\GoFaxServer" />
+    <!-- <tab class="GosaSystems\admin\systems\services\GoFonServer" /> -->
+    <tab class="GosaSystems\admin\systems\services\cups\GoCupsServer" />
+    <tab class="GosaSystems\admin\systems\services\kiosk\GoKioskService" />
+    <tab class="GosaSystems\admin\systems\services\terminal\GoTerminalServer" />
+    <tab class="GosaSystems\admin\systems\services\ldap\GoLdapServer" />
+    <tab class="GosaSystems\admin\systems\services\share\GoShareServer" />
+    <tab class="GosaSystems\admin\systems\services\spam\GoSpamServer" />
+    <tab class="GosaSystems\admin\systems\services\virus\GoVirusServer" />
+    <tab class="GosaSystems\admin\systems\services\dhcp\ServDhcp" />
+    <tab class="GosaSystems\admin\systems\services\dns\ServDns" />
+    <tab class="GosaSystems\admin\systems\services\rsyslog\RsyslogServer" />
   </serverservice>
 
   <!-- Department plugin -->
