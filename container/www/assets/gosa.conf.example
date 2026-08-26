@@ -11,7 +11,7 @@
       <plugin acl="users/netatalk,users/environment,users/posixAccount,users/kolabAccount,users/phpscheduleitAccount,users/oxchangeAccount,users/proxyAccount,users/connectivity,users/pureftpdAccount,users/phpgwAccount,users/opengwAccount,users/pptpAccount,users/intranetAccount,users/webdavAccount,users/nagiosAccount,users/sambaAccount,users/groupware,users/mailAccount,users/user,users/scalixAccount,users/password,users/gofaxAccount,users/phoneAccount,users/Groupware" 
             class="userManagement" />
       <plugin acl="groups" class="groupManagement" />
-      <plugin acl="roles" class="roleManagement"/>
+      <plugin acl="roles" class="GosaRoleManagement\admin\roleManagement\RoleManagement"/>
       <plugin acl="acl"  class="aclManagement" />
       <plugin acl="ogroups" class="ogroupManagement" />
       <plugin acl="sudo" class="sudoManagement" />
@@ -82,7 +82,7 @@
      <tab class="posixAccount" name="POSIX" />
      <tab class="sambaAccount" name="Samba" />
      <tab class="netatalk" name="Netatalk" />
-     <tab class="mailAccount" name="Mail" />
+     <tab class="GosaMailPlugin\personal\mailaddress\MailAccount" name="Mail" />
 <!--     <tab class="Groupware" name="Groupware" />-->
      <tab class="scalixAccount" name="Scalix" />
      <tab class="environment" name="Desktop" />
@@ -99,7 +99,7 @@
      <tab class="posixAccount" name="POSIX" />
      <tab class="sambaAccount" name="Samba" />
      <tab class="netatalk" name="Netatalk" />
-     <tab class="mailAccount" name="Mail" />
+     <tab class="GosaMailPlugin\personal\mailaddress\MailAccount" name="Mail" />
 <!--     <tab class="Groupware" name="Groupware" />-->
      <tab class="scalixAccount" name="Scalix" />
      <tab class="environment" name="Desktop" />
@@ -115,7 +115,7 @@
     <tab class="DynamicLdapGroup" name="Dynamic object" />
     <tab class="environment" name="Desktop" />
     <tab class="appgroup" name="Startmenu" />
-    <tab class="mailgroup" name="Mail" />
+    <tab class="GosaMailPlugin\admin\groups\mailaddress\MailGroup" name="Mail" />
 <!--    <tab class="GroupwareSharedFolder" name="Groupware" />-->
   </grouptabs>
 
