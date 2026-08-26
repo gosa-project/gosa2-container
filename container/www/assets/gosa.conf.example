@@ -91,7 +91,6 @@
      <tab class="phoneAccount" name="Phone" />
      <tab class="nagiosAccount" name="Nagios" /> 
      <tab class="netgroupAccount" name="NIS Netgroup" />
-     <tab class="GosaSsh\personal\ssh\SshPublicKey" name="SSH" />
    </usertabs>
 
   <!-- User dialog -->
@@ -108,7 +107,6 @@
      <tab class="gofaxAccount" name="Fax" />
      <tab class="phoneAccount" name="Phone" />
      <tab class="nagiosAccount" name="Nagios" />
-     <tab class="GosaSsh\personal\ssh\SshPublicKey" name="SSH" />
    </MyAccountTabs>
 
   <!-- Group dialog -->
