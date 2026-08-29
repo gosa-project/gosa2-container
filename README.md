@@ -49,12 +49,13 @@ cd gosa2-container
 git clone https://github.com/gosa-project/gosa-core.git container/www/assets/gosa2
 ```
 
-3. Provide a valid gosa and ldap configuration by renaming `config.ldif.example` to `config.ldif`, `data.ldif.example` to `data.ldif` and `gosa.conf.example` to `gosa.conf`. A valid and working configuration is provided. The base DN is set to `dc=example,dc=com`.
+3. Provide a valid gosa, ldap and docker configuration by renaming `config.ldif.example` to `config.ldif`, `data.ldif.example` to `data.ldif`, `gosa.conf.example` to `gosa.conf` and `docker-compose.example.yml` to `docker-compose.yml`. A valid and working configuration is provided. The base DN is set to `dc=example,dc=com`.
 
 ```
 mv container/www/assets/gosa.conf.example container/www/assets/gosa.conf
 mv container/ldap/assets/config.ldif.example container/ldap/assets/config.ldif
 mv container/ldap/assets/data.ldif.example container/ldap/assets/data.ldif
+mv docker-compose.example.yml docker-compose.yml
 ```
 
 4. Build the necessary Docker containers.
