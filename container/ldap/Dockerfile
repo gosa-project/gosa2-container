@@ -49,8 +49,9 @@ RUN echo "mech_list: plain" >> /etc/ldap/sasl2/slapd.conf \
   && echo "pwcheck_method: saslauthd" >> /etc/ldap/sasl2/slapd.conf \
   && echo "saslauthd_path: /run/saslauthd/mux" >> /etc/ldap/sasl2/slapd.conf
 
-COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin
-COPY --chmod=0755 docker-healthcheck.sh /usr/local/bin
+COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-healthcheck.sh /usr/local/bin/
+RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-healthcheck.sh
 
 EXPOSE 389 636
 VOLUME ["/var/lib/ldap"]

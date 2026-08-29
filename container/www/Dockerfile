@@ -79,7 +79,12 @@ RUN ln -s ../sites-available/gosa /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 RUN locale-gen de
 
-COPY --chmod=0755 docker-entrypoint.sh /
+RUN mkdir /etc/gosa/vacation \
+  && chown www-data:www-data /etc/gosa/vacation \
+  && chmod 750 /etc/gosa/vacation
+
+COPY docker-entrypoint.sh /
+RUN chmod 0755 /docker-entrypoint.sh
 
 EXPOSE 80
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
