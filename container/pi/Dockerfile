@@ -1,4 +1,4 @@
-FROM ubuntu:26.04
+FROM ubuntu:24.04
 
 LABEL maintainer="Jan Wenzel <wenzel@gonicus.de>"
 
@@ -23,8 +23,8 @@ RUN /opt/privacyidea/bin/pip install setuptools
 RUN /opt/privacyidea/bin/pip install wheel
 RUN /opt/privacyidea/bin/pip install pymysql-sa
 RUN /opt/privacyidea/bin/pip install PyMySQL
-RUN /opt/privacyidea/bin/pip install -r https://raw.githubusercontent.com/privacyidea/privacyidea/v3.9/requirements.txt
-RUN /opt/privacyidea/bin/pip install privacyidea==3.9.*
+RUN /opt/privacyidea/bin/pip install -r https://raw.githubusercontent.com/privacyidea/privacyidea/v3.10/requirements.txt
+RUN /opt/privacyidea/bin/pip install privacyidea==3.10.*
 
 COPY assets/nginx_pi.conf /etc/nginx/sites-available/pi.gosa.conf
 RUN ln -s ../sites-available/pi.gosa.conf /etc/nginx/sites-enabled/pi.gosa.conf
