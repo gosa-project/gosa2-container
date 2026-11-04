@@ -1,6 +1,6 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
-ARG PHP_VERSION="8.4"
+ARG PHP_VERSION="8.5"
 ENV GOSA_PHP_VERSION=${PHP_VERSION}
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -30,8 +30,12 @@ RUN apt-get update && \
     sudo \
     joe \
     python3-pip
-    
-RUN add-apt-repository -y ppa:ondrej/php
+
+#RUN curl -sSf https://packages.sury.org/php/README.txt | sudo sh
+RUN curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
+RUN dpkg -i /tmp/debsuryorg-archive-keyring.deb
+RUN sh -c 'echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
 RUN apt-get -y update
 RUN apt-get -y install \
       ldap-utils \
