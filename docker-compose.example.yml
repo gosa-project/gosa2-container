@@ -34,7 +34,7 @@ services:
   pi:
     build: container/pi
     depends_on:
-      mysql:
+      mariadb:
         condition: service_healthy
       gosa-ldap:
         condition: service_started
@@ -54,8 +54,8 @@ services:
         aliases:
           - pi.gosa.example.com
     hostname: pi.gosa.example.com
-  mysql:
-    build: container/mysql
+  mariadb:
+    build: container/mariadb
     expose:
       - "3306"
     networks:
