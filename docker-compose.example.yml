@@ -1,10 +1,77 @@
 ---
 
 services:
+  proxy:
+    build: container/proxy
+    expose:
+      - 1080
+    ports:
+      - 1080:1080
+    networks:
+      gosa:
+        aliases:
+          - proxy.gosa.example.com
+    hostname: proxy.gosa.example.com
+  pi-db:
+    image: 'docker.io/bitnami/mariadb:latest'
+    ports:
+      - '3306:3306'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_ROOT_PASSWORD=privacyidea
+      - MARIADB_DATABASE=privacyidea
+      - MARIADB_USER=privacyidea
+      - MARIADB_PASSWORD=privacyidea@123
+    healthcheck:
+      test: ["CMD", "/opt/bitnami/scripts/mariadb/healthcheck.sh"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      gosa:
+  pi:
+    build: container/pi
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      gosa-ldap:
+        condition: service_started
+      gosa-ldap2:
+        condition: service_started
+    expose:
+      - 80
+      - 443
+    ports:
+      - 8082:80
+    volumes:
+      - type: bind
+        source: ./var/certs
+        target: /srv/certs
+    networks:
+      gosa:
+        aliases:
+          - pi.gosa.example.com
+    hostname: pi.gosa.example.com
+  mariadb:
+    build: container/mariadb
+    expose:
+      - "3306"
+    networks:
+      gosa:
+        aliases:
+          - mysql.gosa.example.com
+    hostname: mysql.gosa.example.com
+    environment:
+      MARIADB_ROOT_PASSWORD: mysql
   gosa-www:
     build:
       context: container/www
     volumes:
+      - type: bind
+        source: ./var/certs
+        target: /srv/certs
       - type: bind
         source: ./container/www/assets/gosa2
         target: /srv/gosa/gosa/gosa-core
@@ -13,6 +80,8 @@ services:
         condition: service_started
       gosa-ldap2:
         condition: service_started
+    extra_hosts:
+      host.docker.internal: host-gateway
     networks:
       gosa:
         aliases:
