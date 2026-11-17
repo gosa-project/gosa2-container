@@ -3,3 +3,8 @@ docker-compose.yml
 container/www/assets/gosa.conf
 container/ldap/assets/config.ldif
 container/ldap/assets/data.ldif
+var/certs/*.key
+var/certs/*.crt
+var/certs/*.srl
+var/certs/*.csr
+var/certs/*.pem
