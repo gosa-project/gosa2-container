@@ -3,11 +3,11 @@ openssl req -new -sha256 -key rootCA.key -out rootCA.csr -subj "/C=DE/ST=NRW/L=A
 openssl x509 -req -sha256 -days 365 -in rootCA.csr -signkey rootCA.key -out rootCA.crt -copy_extensions copy
 
 openssl ecparam -out pi.key -name prime256v1 -genkey
-openssl req -new -sha256 -key pi.key -out pi.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=pi.gosa.example.com/"
-openssl x509 -req -in pi.csr -CA  rootCA.crt -CAkey rootCA.key -CAcreateserial -out pi.crt -days 3650 -sha256
+openssl req -new -sha256 -key pi.key -out pi.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=pi.gosa.example.com/" -addext "subjectAltName = DNS:pi.gosa.example.com"
+openssl x509 -req -in pi.csr -CA  rootCA.crt -CAkey rootCA.key -CAcreateserial -out pi.crt -days 3650 -sha256 -copy_extensions copy
 cat pi.key pi.crt > pi.gosa.example.com.pem
 
 openssl ecparam -out gosa.key -name prime256v1 -genkey
-openssl req -new -sha256 -key gosa.key -out gosa.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=gosa.gosa.example.com/"
-openssl x509 -req -in gosa.csr -CA  rootCA.crt -CAkey rootCA.key -CAcreateserial -out gosa.crt -days 3650 -sha256
+openssl req -new -sha256 -key gosa.key -out gosa.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=gosa.gosa.example.com/" -addext "subjectAltName = DNS:gosa.gosa.example.com"
+openssl x509 -req -in gosa.csr -CA  rootCA.crt -CAkey rootCA.key -CAcreateserial -out gosa.crt -days 3650 -sha256 -copy_extensions copy
 cat gosa.key gosa.crt > gosa.gosa.example.com.pem
