@@ -1,6 +1,6 @@
 openssl ecparam -genkey -name secp384r1 > rootCA.key
-openssl req -new -sha256 -key rootCA.key -out rootCA.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=*.gosa.example.com/"
-openssl x509 -req -sha256 -days 365 -in rootCA.csr -signkey rootCA.key -out rootCA.crt
+openssl req -new -sha256 -key rootCA.key -out rootCA.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=*.gosa.example.com/" -addext "basicConstraints=critical,CA:TRUE"
+openssl x509 -req -sha256 -days 365 -in rootCA.csr -signkey rootCA.key -out rootCA.crt -copy_extensions copy
 
 openssl ecparam -out pi.key -name prime256v1 -genkey
 openssl req -new -sha256 -key pi.key -out pi.csr -subj "/C=DE/ST=NRW/L=Arnsberg/CN=pi.gosa.example.com/"
